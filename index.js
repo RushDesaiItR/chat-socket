@@ -1,12 +1,20 @@
-var express = require('express')
-require('dotenv').config()
-var app = express()
-var http = require('http').createServer(app);
-var io = require('socket.io')(http);
-const port = process.env.PORT || 3800;
-io.on("connection",socket=>{
-    console.log("User Connected")
+const express = require('express')
+const app = express()
+const server = require('http').createServer(app)
+const port = process.env.PORT || 3000
+const io = require('socket.io')(server)
+const path = require('path')
+
+app.use(express.static(path.join(__dirname + '/public')))
+
+io.on('connection', socket => {
+     console.log('Some client connected')
+  
+    socket.on('chat', message => {
+      console.log('From client: ', message)
+    })
+  })
+
+server.listen(port, () => {
+  console.log(`Server running on port: ${port}`)
 })
-
-
-app.listen(port, ()=> console.log(`http://localhost:${port}`))
