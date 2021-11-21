@@ -14,7 +14,9 @@ io.on('connection', socket => {
       console.log('From client: ', message)
     })
   })
-
+app.get("/",(req, res)=>{
+    res.send("home")
+})
 server.listen(port, () => {
   console.log(`Server running on port: ${port}`)
 })
