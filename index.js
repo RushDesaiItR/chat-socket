@@ -7,4 +7,6 @@ const port = process.env.PORT || 3800;
 io.on("connection",socket=>{
     console.log("User Connected")
 })
-app.listen(port, ()=> console.log(`http://localhost/${port}`))
+
+
+app.listen(port, ()=> console.log(`http://localhost:${port}`))
