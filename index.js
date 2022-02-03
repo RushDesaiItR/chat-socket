@@ -5,7 +5,12 @@ const server = require('http').createServer(app)
 //hfghth
 const app = require('express')();
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http,{
+  cors: {
+    origin: "*",
+  
+  }
+});
 const port = process.env.PORT || 3000;
 
 app.get('/', (req, res) => {
