@@ -1,22 +1,24 @@
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
-const port = process.env.PORT || 3000
-const io = require('socket.io')(server)
-const path = require('path')
-
+//https://chatsocketappvrblok.herokuapp.com/
 //hfghth
+const app = require('express')();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const port = process.env.PORT || 3000;
 
-io.on('connection', socket => {
-     console.log('Some client connected')
-  
-    socket.on('chat', message => {
-      console.log('From client: ', message)
-    })
-  })
-app.get("/",(req, res)=>{
-    res.send("home")
-})
-server.listen(port, () => {
-  console.log(`Server running on port: ${port}`)
-})
+app.get('/', (req, res) => {
+  res.sendFile(__dirname + '/index.html');
+});
+
+io.on('connection', (socket) => {
+  socket.on('chat message', msg => {
+    console.log(msg)
+    io.emit('chat message', msg);
+  });
+});
+
+http.listen(port, () => {
+  console.log(`Socket.IO server running at http://localhost:${port}/`);
+});
