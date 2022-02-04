@@ -1,26 +1,18 @@
-const express = require('express')
-const app = express()
-const server = require('http').createServer(app)
-//https://chatsocketappvrblok.herokuapp.com/
-//hfghth
 const app = require('express')();
 const http = require('http').Server(app);
 const io = require('socket.io')(http,{
-  cors: {
-    origin: "*",
-  
+  cors:{
+    origin:"*"
   }
 });
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/index.html');
-});
 
 io.on('connection', (socket) => {
-  socket.on('chat message', msg => {
+  console.log("socket connected sucessfully")
+  socket.on('chat', msg => {
     console.log(msg)
-    io.emit('chat message', msg);
+    io.emit('chat', msg);
   });
 });
 
