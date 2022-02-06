@@ -12,7 +12,7 @@ io.on('connection', (socket) => {
   console.log("socket connected sucessfully")
   socket.on('chat', msg => {
     console.log(msg)
-    io.brodcast.emit('chat', msg);
+    io.emit('chat', msg);
   });
 });
 
