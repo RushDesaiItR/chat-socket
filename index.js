@@ -1,15 +1,18 @@
-// Libraray
-const express = require("express");
-const socketio = require("socket.io");
-const http = require("http");
+const app = require('express')(); 
+const http = require('http').Server(app);
+ const io = require('socket.io')(http,{
+   cors:{
+     origin:"*"
+   }
+ });
 const { addUser, removeUser, getUser, getRoomUsers } = require("./entity");
 
-// Instances
-const app = express()
-const server = http.createServer(app);
-const io = socketio(server,{cors: { origin: '*' }})
+// // Instances
+// const app = express()
+// const server = http.createServer(app);
+// const io = socketio(server,{cors: { origin: '*' }})
 
-// End point
+// // End point
 
 // Socket
 
@@ -63,4 +66,4 @@ io.on('connect',(socket) => {
 
 
 
-server.listen(8000,() => console.log('Server started on 8000'))
+app.listen(8000,() => console.log('Server started on 8000'))
