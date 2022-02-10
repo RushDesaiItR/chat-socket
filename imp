@@ -1,0 +1,38 @@
+import React, { useEffect } from 'react';
+import io from "socket.io-client";
+const socket = io.connect("https://chatsocketappvrblok.herokuapp.com/")
+//http://localhost:5000")
+const App=()=> {
+  const [msg, setMsg]=React.useState("")
+  const [Arrmsg, setArrMsg]=React.useState([])
+useEffect(() => {
+	console.log("Mounting...");
+  socket.on("chat",payload=>{
+    setArrMsg([...Arrmsg,payload])
+  })
+});
+const clickEvent=()=>{
+  socket.emit("chat",{msg})
+  console.log("called...")
+}
+	return (
+	<h1>
+		Geeks....!
+    <input value={msg} onChange={(e)=>setMsg(e.target.value)} type="text"/>
+    <button onClick={()=>clickEvent()}>click</button>
+    {
+      Arrmsg.map((item)=>{
+        return(
+            <h1>
+              {
+                item.msg
+              }
+            </h1>
+        )
+      })
+    }
+	</h1>
+	);
+}
+
+export default App;
