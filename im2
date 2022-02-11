@@ -1,14 +1,21 @@
-const app = require('express')();
-const http = require('http').Server(app);
-const io = require('socket.io')(http,{
-  cors:{
-    origin:"*"
-  }
-});
-const port = process.env.PORT || 5000;
-
+// Libraray
+const express = require("express");
+//const socketio = require("socket.io");
+const http = require("http");
 const { addUser, removeUser, getUser, getRoomUsers } = require("./entity");
 
+// Instances
+const app = express()
+const server = http.createServer(app);
+//const io = socketio(server,{cors: { origin: '*' }})
+ const io = require('socket.io')(http,{
+   cors:{
+     origin:"*"
+   }
+ });
+// End point//
+
+// Socket
 
 io.on('connect',(socket) => {
   
@@ -58,17 +65,6 @@ io.on('connect',(socket) => {
 })
 
 
-http.listen(port, () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
-});
-
-// End point
-
-// Socket
 
 
-
-
-
-
-app.listen(8000,() => console.log('Server started on 8000'))
+server.listen(56000,() => console.log('Server started on 5600'))
